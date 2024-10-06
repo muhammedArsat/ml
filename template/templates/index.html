@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Purchase History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('https://www.example.com/your-background-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            color: #007bff;
+        }
+        textarea {
+            resize: vertical;
+        }
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Customer Purchase History</h1>
+        <form id="data-form">
+            <div class="form-group">
+                <label for="numAttributes">Number of Attributes:</label>
+                <input type="number" id="numAttributes" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dataInput">Enter Data Instances (one per line, comma-separated, with label at the end):</label>
+                <textarea id="dataInput" class="form-control" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="targetLabel">Target Label:</label>
+                <input type="text" id="targetLabel" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Find Specific Hypothesis</button>
+        </form>
+        <h3 class="mt-4">Most Specific Hypothesis:</h3>
+        <pre id="result"></pre>
+    </div>
+    <script>
+        document.getElementById('data-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const numAttributes = document.getElementById('numAttributes').value;
+            const dataInput = document.getElementById('dataInput').value.trim().split('\n').map(line => {
+                const parts = line.split(',');
+                if (parts.length !== parseInt(numAttributes) + 1) {
+                    alert('Error: Each instance should have ' + numAttributes + ' attributes and a label.');
+                    return null;
+                }
+                return parts;
+            }).filter(line => line !== null);
+            const targetLabel = document.getElementById('targetLabel').value;
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: dataInput, target: targetLabel })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = JSON.stringify(data.specific_hypothesis, null, 2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
