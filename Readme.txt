@@ -1,4 +1,4 @@
-lab 1 no installation required
+lab 1 - pip install flask numpy pandas
 
 lab2 - pip install Flask joblib numpy opencv-python scikit-learn
 
