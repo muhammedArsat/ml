@@ -1,0 +1,66 @@
+Lab1:
+1.Initialize the hypothesis h to the most specific hypothesis in the hypothesis space. This is usually represented as a vector of "?" values, like [null, null, ..., null] or [ϕ, ϕ, ..., ϕ].
+
+2.For each positive training example in the dataset:
+
+3.If the hypothesis h is consistent with the training example, do nothing.
+4.Otherwise, update the hypothesis h to the least general generalization that is consistent with the current example.
+5.For each attribute of the hypothesis:
+6.If the attribute value in h is the same as the value in the example, keep it unchanged.
+7.If the attribute value in h is different, replace it with ? (i.e., the most general value).
+8.Return the hypothesis h after processing all positive examples.
+
+
+Lab2:
+
+1.Load the image dataset of healthy and diseased plants.
+
+2.Resize and preprocess the images for uniformity.
+
+3.Extract features from the images (e.g., HOG, color histograms, CNN features).
+
+4.Standardize the feature vectors to improve model performance.
+
+5.Split the dataset into training and testing sets.
+
+6.Train the SVM classifier using the training set and selected kernel (e.g., linear, RBF).
+
+7.Predict the labels for the test set using the trained SVM model.
+
+8.Evaluate the model using metrics like accuracy, precision, recall, or F1-score.
+
+9.Use the model to classify new images as healthy or diseased.
+
+
+
+Lab3:
+
+1.Load the dataset containing medical records of patients.
+
+2.Preprocess the data by normalizing or scaling the features.
+
+3.Apply K-Means clustering with a predefined number of clusters (k).
+
+4.Initialize K-Means centroids randomly and iteratively assign patients to the nearest centroid.
+
+5.Update the centroids by averaging the data points in each cluster, and repeat until convergence.
+
+6.Apply EM algorithm by initializing cluster means, variances, and mixing coefficients.
+
+7.E-step of EM: Estimate the probability that each patient belongs to each cluster using the current parameters.
+
+8.M-step of EM: Update the cluster parameters (mean, variance, mixing coefficients) based on the estimated probabilities.
+
+9.Repeat E and M steps until the parameters converge.
+
+10.Evaluate and compare clustering performance using metrics like silhouette score, purity, or adjusted Rand index.
+
+11.Analyze clusters to interpret the results and identify personalized treatment plans for each cluster.
+
+12.Visualize the clusters to compare the behavior of K-Means and EM on the medical data.
+
+
+
+
+
+
